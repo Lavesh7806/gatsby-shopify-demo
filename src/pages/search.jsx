@@ -76,6 +76,7 @@ function SearchPage({
   location,
 }) {
   // These default values come from the page query string
+  debugger
   const queryParams = getValuesFromQuery(location.search || serverData.query)
 
   const [filters, setFilters] = React.useState(queryParams)
@@ -106,7 +107,7 @@ function SearchPage({
     sortKey,
     false,
     DEFAULT_PRODUCTS_PER_PAGE,
-    serverData.products,
+    serverData?.products || [],
     initialFilters
   )
 
@@ -148,7 +149,7 @@ function SearchPage({
   }, [location.hash, hasNextPage, fetchNextPage])
 
   const currencyCode = getCurrencySymbol(
-    serverData.products?.[0]?.node?.priceRangeV2?.minVariantPrice?.currencyCode
+    serverData?.products?.[0]?.node?.priceRangeV2?.minVariantPrice?.currencyCode
   )
 
   return (
@@ -337,4 +338,4 @@ export default function SearchPageTemplate(props) {
   )
 }
 
-export const Head = () => <Seo/>
+export const Head = () => <Seo />
